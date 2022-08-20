@@ -5,11 +5,14 @@ import { version } from '../../package.json';
 
 export async function createServer() {
   const app = fastify();
-  app.register(todoRoutes, { prefix: '/api/todos' });
   app.register(swagger, {
     routePrefix: '/docs',
     swagger: {
-      tags: [{ name: 'todo' }],
+      tags: [
+        {
+          name: 'todo',
+        },
+      ],
       info: {
         title: 'Todo',
         description: 'A simple todo app',
@@ -19,6 +22,7 @@ export async function createServer() {
     staticCSP: true,
     exposeRoute: true,
   });
+  app.register(todoRoutes, { prefix: '/api/todos' });
 
   return app;
 }
